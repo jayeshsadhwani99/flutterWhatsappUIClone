@@ -1,3 +1,4 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:whatsappclone/pages/calls_screen.dart';
 import 'package:whatsappclone/pages/camera_screen.dart';
@@ -5,6 +6,7 @@ import 'package:whatsappclone/pages/chat_screen.dart';
 import 'package:whatsappclone/pages/status_screen.dart';
 
 class HomePage extends StatefulWidget {
+  HomePage();
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -12,10 +14,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  List<CameraDescription> cameras;
   @override
   void initState() {
     super.initState();
+    getCameras();
     _tabController = new TabController(vsync: this, initialIndex: 1, length: 4);
+  }
+
+  getCameras() async {
+    cameras = await availableCameras();
+    setState(() {});
   }
 
   @override
@@ -53,7 +62,7 @@ class _HomePageState extends State<HomePage>
       body: new TabBarView(
         controller: _tabController,
         children: <Widget>[
-          new CameraScreen(),
+          new CameraScreen(cameras),
           new ChatScreen(),
           new StatusScreen(),
           new CallsScreen(),

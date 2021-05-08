@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'home_page.dart';
+import 'dart:async';
+import 'package:camera/camera.dart';
 
-void main() => runApp(new MyApp());
+List<CameraDescription> cameras;
+
+void main() async {
+  // cameras = await availableCameras();
+  runApp(new MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
